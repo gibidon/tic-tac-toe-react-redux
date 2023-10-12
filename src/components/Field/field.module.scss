@@ -1,0 +1,10 @@
+.field {
+  padding: 2rem;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  max-width: 320px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  box-shadow: 0 4px 15px 0 rgba(153, 153, 153, 0.75);
+}

@@ -1,0 +1,13 @@
+.cell {
+	height: 100px;
+	width: 100px;
+	border: 1px solid transparent;
+	font-size: 30px;
+	cursor: pointer;
+	border-radius: 5px;
+	// font-weight: 200;
+}
+
+.cell:hover {
+	background-color: rgb(201, 199, 199);
+}
