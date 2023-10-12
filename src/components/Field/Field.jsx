@@ -6,6 +6,7 @@ import { Cell } from "./components/Cell/cell"
 
 export const Field = () => {
 	const field = useSelector(selectField)
+
 	const fieldElems = field.map((cell, index) => (
 		<Cell key={index} index={index} content={cell} />
 	))

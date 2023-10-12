@@ -1,32 +1,33 @@
 import styles from "./cell.module.scss"
-import { store } from "../../../../store"
-import { checkEmptyCell, checkWin } from "../../../../utils"
 import { PLAYER, PLAYER_SIGN } from "../../../../constants"
 import { fillCell } from "../../../../actions"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { selectField, selectPlayer, selectStatus } from "../../../../selectors"
+import { checkWin, checkEmptyCell } from "../../../../utils"
 
 export const Cell = ({ content, index }) => {
 	const dispatch = useDispatch()
-
-	const { field, status, player } = store.getState().game
+	const status = useSelector(selectStatus)
+	const player = useSelector(selectPlayer)
+	const field = useSelector(selectField)
 
 	return (
 		<button
 			className={styles.cell}
 			onClick={() => {
-				// if (status === "WIN" || status === "DRAW" || content !== PLAYER.NOBODY) {
-				// 	return
-				// }
-				// handleCLick(index)
+				if (status === "WIN" || status === "DRAW" || content !== PLAYER.NOBODY) {
+					return
+				}
 				dispatch(fillCell(index))
 				const newField = [...field]
 				newField[index] = player
 
 				if (checkWin(newField, player)) {
+					dispatch({ type: "SET_WINNER", payload: player })
+					dispatch({ type: "SET_STATUS", payload: "WIN" })
 					return
-				}
-				if (!checkEmptyCell(newField)) {
-					store.dispatch({ type: "SET_STATUS", payload: "DRAW" })
+				} else if (!checkEmptyCell(newField)) {
+					dispatch({ type: "SET_STATUS", payload: "DRAW" })
 				}
 			}}
 		>
